@@ -1,30 +1,14 @@
 import requests
 import time
 import base64
+from openai import OpenAI
 from dotenv import dotenv_values
 import os
-import re
-import json
 import llm.global_config as global_config
-import asyncio
-import logging
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 env_path = os.path.join(current_dir, ".env")
 config = dotenv_values(env_path)
-
-
-def count_len(text):
-    chinese_count = len(re.findall(r'[\u4e00-\u9fa5]', text))
-    word_count = len(re.findall(r'[a-zA-Z]+', text))
-    total_count = chinese_count + word_count
-
-    return total_count
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-env_path = os.path.join(current_dir, ".env")
-config = dotenv_values(env_path)
-
 
 
 def encode_image(image_path: str) -> str:
@@ -42,320 +26,215 @@ def encode_image(image_path: str) -> str:
     base64_image = base64.b64encode(image_bytes).decode('utf-8')
     return base64_image
 
-def get_answer(text, image=None, system_prompt=None, history=None, model=None):
 
-    output = ' '
+def get_answer(content, image=None, system_prompt=None, history=None, model=None): # gpt-4o, gpt-4o-mini, o1
 
     # Use global config model if not specified
     if model is None:
         model = global_config.get_model()
 
-    model_list = ['gpt-4o', 'gpt-4o-mini', 'o1']
-
-    if model not in model_list:
+    # Map model names to OpenAI model names
+    if model.lower() == 'gpt':
+        model = 'gpt-4o'
+    elif 'gpt' in model.lower():
+        if 'o1' in model.lower():
+            model = 'o1'
+        elif '4o-mini' in model.lower():
+            model = 'gpt-4o-mini'
+        elif '4o' in model.lower():
+            model = 'gpt-4o'
+        else:
+            model = 'gpt-4o'
+    else:
         model = 'gpt-4o'
 
-
+    output = ''
+    
+    # Build messages array
     if history is None:
         if system_prompt is None:
             if image is None:
-                messages = [{"role": "user", "content": text}]
+                messages = [{"role": "user", "content": content}]
             else:
                 base64_image = encode_image(image)
-                messages = [{"role": "user", "content": [{'type': 'text','text': text},
-                    {'type': 'image_url','image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}]
-                    }
-                ]
+                messages = [{"role": "user", "content": [
+                    {'type': 'text', 'text': content},
+                    {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                ]}]
         else:
             if image is None:
                 messages = [
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": text},
+                    {"role": "user", "content": content}
                 ]
             else:
                 base64_image = encode_image(image)
                 messages = [
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": text},
+                    {"role": "user", "content": [
+                        {'type': 'text', 'text': content},
+                        {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                    ]}
                 ]
     else:
-        if image is None:
-            messages = history + [{"role": "user", "content": text}]
+        if system_prompt is None:
+            if image is None:
+                messages = history + [{"role": "user", "content": content}]
+            else:
+                base64_image = encode_image(image)
+                messages = history + [{"role": "user", "content": [
+                    {'type': 'text', 'text': content},
+                    {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                ]}]
         else:
-            base64_image = encode_image(image)
-            messages = history + [{"role": "user", "content": [{'type': 'text','text': text},
-                    {'type': 'image_url','image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}]
-                    }
+            if image is None:
+                messages = [{"role": "system", "content": system_prompt}] + history + [
+                    {"role": "user", "content": content}
+                ]
+            else:
+                base64_image = encode_image(image)
+                messages = [{"role": "system", "content": system_prompt}] + history + [
+                    {"role": "user", "content": [
+                        {'type': 'text', 'text': content},
+                        {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                    ]}
                 ]
 
-
-    api_url = config.get("API_URL")
-    api_key = config.get("API_KEY")
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
-    }
-
-    data = {
-        'model': model,
-        'messages': messages,
-    }
+    # Get API credentials, try new naming first, fallback to old naming
+    api_key = config.get("OPENAI_KEY") or config.get("API_KEY")
+    base_url = config.get("OPENAI_URL") or config.get("API_URL")
     
-    for i in range(3):
-        try:
-            response = requests.post(api_url, headers=headers, json=data)
-            response = response.json()
-            output = response['choices'][0]['message']['content']
-            return output
-        except:
-            time.sleep(5)
+    client = OpenAI(api_key=api_key, base_url=base_url)
+    
+    # Create completion request
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=messages,
+            stream=False
+        )
+        
+        for i in range(3):
+            try:
+                output = response.choices[0].message.content
+                return output
+            except:
+                time.sleep(5)
+    except Exception as e:
+        print(f"Error calling OpenAI API: {e}")
+        for i in range(3):
+            try:
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    stream=False
+                )
+                output = response.choices[0].message.content
+                return output
+            except:
+                time.sleep(5)
 
-    print(f"answer: {output}")
     return output
 
-def get_answer_stream(text, image=None, system_prompt=None, history=None, model=None, stop_event=None):
+
+def get_answer_stream(content, image=None, system_prompt=None, history=None, model=None, stop_event=None):
     """Streaming version of get_answer that yields chunks of text as they are generated."""
     
     # Use global config model if not specified
     if model is None:
         model = global_config.get_model()
-    
-    model_list = ['gpt-4o', 'gpt-4o-mini', 'o1','claude-3-5-sonnet','deepseek-r1','deepseek-v3']
 
-    if model not in model_list:
+    # Map model names to OpenAI model names
+    if model.lower() == 'gpt':
         model = 'gpt-4o'
-
+    elif 'gpt' in model.lower():
+        if 'o1' in model.lower():
+            model = 'o1'
+        elif '4o-mini' in model.lower():
+            model = 'gpt-4o-mini'
+        elif '4o' in model.lower():
+            model = 'gpt-4o'
+        else:
+            model = 'gpt-4o'
+    else:
+        model = 'gpt-4o'
+    
+    # Build messages array (same logic as get_answer)
     if history is None:
         if system_prompt is None:
             if image is None:
-                messages = [{"role": "user", "content": text}]
+                messages = [{"role": "user", "content": content}]
             else:
                 base64_image = encode_image(image)
-                messages = [{"role": "user", "content": [{'type': 'text','text': text},
-                    {'type': 'image_url','image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}]
-                    }
-                ]
+                messages = [{"role": "user", "content": [
+                    {'type': 'text', 'text': content},
+                    {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                ]}]
         else:
             if image is None:
                 messages = [
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": text},
+                    {"role": "user", "content": content}
                 ]
             else:
                 base64_image = encode_image(image)
                 messages = [
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": text},
+                    {"role": "user", "content": [
+                        {'type': 'text', 'text': content},
+                        {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                    ]}
                 ]
     else:
-        if image is None:
-            messages = history + [{"role": "user", "content": text}]
-        else:
-            base64_image = encode_image(image)
-            messages = history + [{"role": "user", "content": [{'type': 'text','text': text},
-                    {'type': 'image_url','image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}]
-                    }
-                ]
-
-
-
-    api_url = config.get("API_URL")
-    api_key = config.get("API_KEY")
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
-    }
-
-    data = {
-        'model': model,
-        'messages': messages,
-        'stream': True  # Enable streaming
-    }
-    
-    for i in range(3):
-        try:
-            # Use shorter timeout for timely response when client disconnects
-            response = requests.post(api_url, headers=headers, json=data, stream=True, timeout=30)
-            
-            # Process the streaming response
-            full_response = ""
-            try:
-                for line in response.iter_lines():
-                    # Check if generation should stop
-                    if stop_event and stop_event.is_set():
-                        return
-                        
-                    if not line:
-                        continue
-                        
-                    line = line.decode('utf-8')
-                    # Skip the "data: " prefix and empty lines
-                    if line.startswith('data: '):
-                        line = line[6:]  # Remove 'data: ' prefix
-                        if line == '[DONE]':
-                            break
-                        try:
-                            json_line = json.loads(line)
-                            if 'choices' in json_line and len(json_line['choices']) > 0:
-                                delta = json_line['choices'][0].get('delta', {})
-                                if 'content' in delta:
-                                    content = delta['content']
-                                    full_response += content
-                                    yield content
-                        except json.JSONDecodeError:
-                            continue
-            except (requests.exceptions.ChunkedEncodingError, requests.exceptions.ConnectionError, 
-                    requests.exceptions.ReadTimeout) as e:
-                # These exceptions usually indicate client disconnection
-                return
-            
-            # If we got here without yielding anything, yield the full response
-            if not full_response:
-                yield ' '
-            return
-        except requests.exceptions.Timeout:
-            return
-        except requests.exceptions.ConnectionError:
-            return
-        except Exception as e:
-            time.sleep(5)
-    
-    yield ' '
-
-async def get_answer_stream_async(text, image=None, system_prompt=None, history=None, model=None, stop_event=None):
-    """Streaming version of get_answer that yields chunks of text as they are generated."""
-    
-    # Use global config model if not specified
-    if model is None:
-        model = global_config.get_model()
-    
-    model_list = ['gpt-4o', 'gpt-4o-mini', 'o1','claude-3-5-sonnet','deepseek-r1','deepseek-v3']
-
-    if model not in model_list:
-        model = 'gpt-4o'
-
-    if history is None:
         if system_prompt is None:
             if image is None:
-                messages = [{"role": "user", "content": text}]
+                messages = history + [{"role": "user", "content": content}]
             else:
                 base64_image = encode_image(image)
-                messages = [{"role": "user", "content": [{'type': 'text','text': text},
-                    {'type': 'image_url','image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}]
-                    }
-                ]
+                messages = history + [{"role": "user", "content": [
+                    {'type': 'text', 'text': content},
+                    {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                ]}]
         else:
             if image is None:
-                messages = [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": text},
+                messages = [{"role": "system", "content": system_prompt}] + history + [
+                    {"role": "user", "content": content}
                 ]
             else:
                 base64_image = encode_image(image)
-                messages = [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": text},
-                ]
-    else:
-        if image is None:
-            messages = history + [{"role": "user", "content": text}]
-        else:
-            base64_image = encode_image(image)
-            messages = history + [{"role": "user", "content": [{'type': 'text','text': text},
-                    {'type': 'image_url','image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}]
-                    }
+                messages = [{"role": "system", "content": system_prompt}] + history + [
+                    {"role": "user", "content": [
+                        {'type': 'text', 'text': content},
+                        {'type': 'image_url', 'image_url': {'url': f"data:image/jpeg;base64,{base64_image}"}}
+                    ]}
                 ]
 
-
-
-    api_url = config.get("API_URL")
-    api_key = config.get("API_KEY")
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
-    }
-
-    data = {
-        'model': model,
-        'messages': messages,
-        'stream': True  # Enable streaming
-    }
+    # Get API credentials, try new naming first, fallback to old naming
+    api_key = config.get("OPENAI_KEY") or config.get("API_KEY")
+    base_url = config.get("OPENAI_URL") or config.get("API_URL")
+    
+    client = OpenAI(api_key=api_key, base_url=base_url)
     
     for i in range(3):
         try:
-            # Use shorter timeout for timely response when client disconnects
-            response = requests.post(api_url, headers=headers, json=data, stream=True, timeout=30)
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                stream=True
+            )
             
-            # Process the streaming response
-            full_response = ""
-            try:
-                async def stream_generator():
-                    async for line in response.aiter_lines():
-                        # Check if generation should stop
-                        if stop_event and stop_event.is_set():
-                            return
-                            
-                        if not line:
-                            continue
-                            
-                        line = line.decode('utf-8')
-                        # Skip the "data: " prefix and empty lines
-                        if line.startswith('data: '):
-                            line = line[6:]  # Remove 'data: ' prefix
-                            if line == '[DONE]':
-                                return
-                            try:
-                                json_line = json.loads(line)
-                                if 'choices' in json_line and len(json_line['choices']) > 0:
-                                    delta = json_line['choices'][0].get('delta', {})
-                                    if 'content' in delta:
-                                        content = delta['content']
-                                        full_response += content
-                                        yield content
-                            except json.JSONDecodeError:
-                                continue
-
-                stream = stream_generator()
-                async def should_stop():
-                    return stop_event and stop_event.is_set()
-
-                logger = logging.getLogger(__name__)
-                accumulated_content = ""
-                async for chunk in stream:
-                    # Check if generation should stop
-                    if should_stop() and should_stop():
-                        logger.info("Stopping generation as requested")
-                        break
-                        
-                    if chunk.choices[0].delta.content:
-                        content_chunk = chunk.choices[0].delta.content
-                        accumulated_content += content_chunk
-                        yield content_chunk
-                        
-                    # Add small delay to prevent overwhelming the client
-                    await asyncio.sleep(0.001)
+            for chunk in response:
+                # Check if we should stop before yielding
+                if stop_event and stop_event.is_set():
+                    return
                     
-                # If we got here without yielding anything, yield the full response
-                if not accumulated_content:
-                    yield ' '
-                return
-            except (requests.exceptions.ChunkedEncodingError, requests.exceptions.ConnectionError, 
-                    requests.exceptions.ReadTimeout) as e:
-                # These exceptions usually indicate client disconnection
-                return
+                if chunk.choices[0].delta.content:
+                    yield chunk.choices[0].delta.content
+            return
             
-            # If we got here without yielding anything, yield the full response
-            if not full_response:
-                yield ' '
-            return
-        except requests.exceptions.Timeout:
-            return
-        except requests.exceptions.ConnectionError:
-            return
         except Exception as e:
-            time.sleep(5)
-    
-    yield ' '
+            print(f"Error in streaming OpenAI API (attempt {i+1}): {e}")
+            if i < 2:  # If not the last attempt
+                time.sleep(5)
+            else:
+                yield ' '  # Return empty space if all attempts fail 

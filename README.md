@@ -315,28 +315,28 @@ This repository follows best practices by excluding build artifacts:
 
 ### Environment Variables Configuration
 
-**重要**: 在运行项目之前，你需要创建并配置 `.env` 文件。
+**Important**: Before running the project, you need to create and configure the `.env` file.
 
-#### 步骤 1: 创建 .env 文件
+#### Step 1: Create .env File
 
 ```bash
-# 复制示例配置文件
+# Copy the example configuration file
 cp .env.example .env
 ```
 
-#### 步骤 2: 配置 API Keys
+#### Step 2: Configure API Keys
 
-编辑 `.env` 文件，填入你的真实 API keys：
+Edit the `.env` file and fill in your actual API keys:
 
 ```bash
-# ⚠️  必需配置
+# ⚠️ Required configuration
 OPENAI_API_KEY=sk-your_actual_openai_api_key_here
 
-# ⚠️  Mosaic模式必需 - Qwen长文本模型配置
+# ⚠️ Required for Mosaic mode - Qwen long text model configuration
 DASHSCOPE_API_KEY=your_actual_qwen_dashscope_api_key_here
 QWEN_MODEL=qwen-long
 
-# 可选配置
+# Optional configuration
 LANGCHAIN_API_KEY=your_langchain_api_key_here
 FLASK_ENV=development
 DEFAULT_MODEL=gpt-4o
@@ -345,20 +345,15 @@ UPLOAD_FOLDER=uploads
 MAX_FILE_SIZE=100MB
 ```
 
-#### 重要说明
+#### Important Notes
 
-1. **OpenAI API Key**: 基础功能必需
-   - 获取地址: https://platform.openai.com/api-keys
+1. **OpenAI API Key**: Required for basic functionality
+   - Get it from: https://platform.openai.com/api-keys
    
-2. **Qwen API Key**: Mosaic模式必需
-   - 当启用Mosaic模式时，系统需要使用Qwen-Long模型进行长文本处理
-   - 获取地址: https://help.aliyun.com/zh/dashscope/developer-reference/activate-dashscope-and-create-an-api-key
-   - 免费额度: 新用户通常可获得一定的免费调用额度
-
-3. **安全提醒**: 
-   - ⚠️ **绝对不要**将真实的API key提交到git仓库
-   - ⚠️ `.env` 文件已被添加到 `.gitignore`，确保不会被意外提交
-   - ⚠️ 只与可信任的团队成员分享API keys
+2. **Qwen API Key**: Required for Mosaic mode
+   - When Mosaic mode is enabled, the system needs to use the Qwen-Long model for long text processing
+   - Get it from: https://help.aliyun.com/zh/dashscope/developer-reference/activate-dashscope-and-create-an-api-key
+   - Free quota: New users usually receive a certain amount of free call quota.
 
 ### Custom Model
 
