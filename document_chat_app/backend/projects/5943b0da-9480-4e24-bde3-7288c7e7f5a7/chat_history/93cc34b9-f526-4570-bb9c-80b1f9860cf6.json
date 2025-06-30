@@ -1,0 +1,89 @@
+[
+  {
+    "role": "system",
+    "content": "Chat title metadata",
+    "title": "gpt-4o",
+    "timestamp": "2025-06-25T10:43:21.395366",
+    "message_id": "3e8d2ef7-c46a-4be5-a9ff-74fa1736b122"
+  },
+  {
+    "role": "user",
+    "content": "请回答 '非流动资产合计' 最高的公司是哪一个？",
+    "timestamp": "2025-06-25T09:08:38.468371",
+    "message_id": "186ac9bb-90c3-496c-9d2a-0831e54b0587",
+    "additional_data": {
+      "file_paths": [
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/盾安环境财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/格力电器财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/沪电股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华峰超纤财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华夏航空财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/顺威股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/武汉凡谷财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/先锋电子财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/洋河股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/亿纬锂能财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/中粮科工财务报告.txt"
+      ],
+      "selected_files": [
+        {
+          "filename": "盾安环境财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/盾安环境财务报告.txt"
+        },
+        {
+          "filename": "格力电器财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/格力电器财务报告.txt"
+        },
+        {
+          "filename": "沪电股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/沪电股份财务报告.txt"
+        },
+        {
+          "filename": "华峰超纤财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华峰超纤财务报告.txt"
+        },
+        {
+          "filename": "华夏航空财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华夏航空财务报告.txt"
+        },
+        {
+          "filename": "顺威股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/顺威股份财务报告.txt"
+        },
+        {
+          "filename": "武汉凡谷财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/武汉凡谷财务报告.txt"
+        },
+        {
+          "filename": "先锋电子财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/先锋电子财务报告.txt"
+        },
+        {
+          "filename": "洋河股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/洋河股份财务报告.txt"
+        },
+        {
+          "filename": "亿纬锂能财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/亿纬锂能财务报告.txt"
+        },
+        {
+          "filename": "中粮科工财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/中粮科工财务报告.txt"
+        }
+      ],
+      "use_all_files": false,
+      "data_mosaic_enabled": false,
+      "model": "gpt-4o"
+    }
+  },
+  {
+    "role": "assistant",
+    "content": "根据上述文件内容，“非流动资产合计”最高的公司是“惠州亿纬锂能股份有限公司”，其非流动资产合计为57,879,267,761.61元。",
+    "timestamp": "2025-06-25T09:08:49.191296",
+    "message_id": "8000ef96-b516-4d97-9c78-75f9798bbc84",
+    "additional_data": {
+      "model": "gpt-4o",
+      "data_mosaic_enabled": false
+    }
+  }
+]

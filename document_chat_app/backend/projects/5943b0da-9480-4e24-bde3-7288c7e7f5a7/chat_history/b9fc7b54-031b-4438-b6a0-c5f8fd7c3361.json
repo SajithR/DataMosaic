@@ -1,0 +1,89 @@
+[
+  {
+    "role": "system",
+    "content": "Chat title metadata",
+    "title": "gpt-4o-mini",
+    "timestamp": "2025-06-25T10:51:41.089067",
+    "message_id": "cbb6db9a-0695-4961-bc70-54aa4ff2ce5d"
+  },
+  {
+    "role": "user",
+    "content": "请回答 '非流动资产合计' 最高的公司是哪一个？",
+    "timestamp": "2025-06-25T10:51:17.356398",
+    "message_id": "4c5a77b1-c57f-41be-a3c0-fc83d1193620",
+    "additional_data": {
+      "file_paths": [
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/盾安环境财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/格力电器财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/沪电股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华峰超纤财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华夏航空财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/顺威股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/武汉凡谷财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/先锋电子财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/洋河股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/亿纬锂能财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/中粮科工财务报告.txt"
+      ],
+      "selected_files": [
+        {
+          "filename": "盾安环境财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/盾安环境财务报告.txt"
+        },
+        {
+          "filename": "格力电器财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/格力电器财务报告.txt"
+        },
+        {
+          "filename": "沪电股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/沪电股份财务报告.txt"
+        },
+        {
+          "filename": "华峰超纤财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华峰超纤财务报告.txt"
+        },
+        {
+          "filename": "华夏航空财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华夏航空财务报告.txt"
+        },
+        {
+          "filename": "顺威股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/顺威股份财务报告.txt"
+        },
+        {
+          "filename": "武汉凡谷财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/武汉凡谷财务报告.txt"
+        },
+        {
+          "filename": "先锋电子财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/先锋电子财务报告.txt"
+        },
+        {
+          "filename": "洋河股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/洋河股份财务报告.txt"
+        },
+        {
+          "filename": "亿纬锂能财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/亿纬锂能财务报告.txt"
+        },
+        {
+          "filename": "中粮科工财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/中粮科工财务报告.txt"
+        }
+      ],
+      "use_all_files": false,
+      "data_mosaic_enabled": false,
+      "model": "gpt-4o-mini"
+    }
+  },
+  {
+    "role": "assistant",
+    "content": "根据提供的文档，2024年第一季度：\n\n* **营业收入：** 2,626,059,123.69 元，比上年同期（调整后）增长7.31%。\n* **归属于上市公司股东的净利润：** 208,450,931.85 元，比上年同期（调整后）增长28.88%。\n\n文档中没有提供“归属于上市公司股东的扣除非经常性损益的净利润”的数据。",
+    "timestamp": "2025-06-25T10:51:20.623562",
+    "message_id": "bae5eb6a-6d8e-404f-addc-67cb84896814",
+    "additional_data": {
+      "model": "gpt-4o-mini",
+      "data_mosaic_enabled": false
+    }
+  }
+]

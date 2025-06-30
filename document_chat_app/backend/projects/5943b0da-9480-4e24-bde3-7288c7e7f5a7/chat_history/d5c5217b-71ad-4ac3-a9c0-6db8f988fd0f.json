@@ -1,0 +1,89 @@
+[
+  {
+    "role": "system",
+    "content": "Chat title metadata",
+    "title": "deepseek-R1",
+    "timestamp": "2025-06-25T13:41:07.859768",
+    "message_id": "1214fc3b-7be9-4b18-a7d7-1e35f784c981"
+  },
+  {
+    "role": "user",
+    "content": "请回答 '非流动资产合计' 最高的公司是哪一个？",
+    "timestamp": "2025-06-25T13:38:39.016791",
+    "message_id": "5a9423f5-4552-4518-9f25-436fc5c3e987",
+    "additional_data": {
+      "file_paths": [
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/亿纬锂能财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华峰超纤财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/顺威股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/盾安环境财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/中粮科工财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/武汉凡谷财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华夏航空财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/洋河股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/沪电股份财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/格力电器财务报告.txt",
+        "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/先锋电子财务报告.txt"
+      ],
+      "selected_files": [
+        {
+          "filename": "亿纬锂能财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/亿纬锂能财务报告.txt"
+        },
+        {
+          "filename": "华峰超纤财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华峰超纤财务报告.txt"
+        },
+        {
+          "filename": "顺威股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/顺威股份财务报告.txt"
+        },
+        {
+          "filename": "盾安环境财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/盾安环境财务报告.txt"
+        },
+        {
+          "filename": "中粮科工财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/中粮科工财务报告.txt"
+        },
+        {
+          "filename": "武汉凡谷财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/武汉凡谷财务报告.txt"
+        },
+        {
+          "filename": "华夏航空财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/华夏航空财务报告.txt"
+        },
+        {
+          "filename": "洋河股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/洋河股份财务报告.txt"
+        },
+        {
+          "filename": "沪电股份财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/沪电股份财务报告.txt"
+        },
+        {
+          "filename": "格力电器财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/格力电器财务报告.txt"
+        },
+        {
+          "filename": "先锋电子财务报告.txt",
+          "filepath": "../document_chat_app/backend/projects/5943b0da-9480-4e24-bde3-7288c7e7f5a7/uploads/先锋电子财务报告.txt"
+        }
+      ],
+      "use_all_files": false,
+      "data_mosaic_enabled": false,
+      "model": "deepseek-r1"
+    }
+  },
+  {
+    "role": "assistant",
+    "content": "The length of your prompt exceeds the model's max input limit 65536. Please reduce the length of your prompt and try again.",
+    "timestamp": "2025-06-25T13:38:41.110652",
+    "message_id": "89164f92-fcf0-4e9e-a588-af1d593aa25c",
+    "additional_data": {
+      "model": "deepseek-r1",
+      "data_mosaic_enabled": false
+    }
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "role": "user",
+    "content": "hi",
+    "timestamp": "2025-06-28T09:54:41.879548",
+    "message_id": "f145a59e-5667-4c62-9dd9-433ea26aed58",
+    "additional_data": {
+      "file_paths": [],
+      "selected_files": [],
+      "use_all_files": false,
+      "data_mosaic_enabled": false,
+      "model": "gpt-4o"
+    }
+  },
+  {
+    "role": "assistant",
+    "content": "你好！有什么可以帮你的吗？",
+    "timestamp": "2025-06-28T09:54:44.563689",
+    "message_id": "494cd2f5-e536-4e4d-b78d-36227fc2e61d",
+    "additional_data": {
+      "model": "gpt-4o",
+      "data_mosaic_enabled": false
+    }
+  },
+  {
+    "role": "user",
+    "content": "你是什么模型",
+    "timestamp": "2025-06-28T09:54:49.546490",
+    "message_id": "6113f0ea-f02f-4e6f-9769-b426c71a2303",
+    "additional_data": {
+      "file_paths": [],
+      "selected_files": [],
+      "use_all_files": false,
+      "data_mosaic_enabled": false,
+      "model": "gpt-4o"
+    }
+  },
+  {
+    "role": "assistant",
+    "content": "我是一个由 OpenAI 开发的大型语言模型，基于 GPT-4 架构。GPT 是 \"Generative Pre-trained Transformer\" 的缩写，我的主要功能是通过大量的文本数据训练，能够理解和生成自然语言，从而帮助你解决问题、回答问题或进行对话交流。有什么具体的问题可以随时问我！ 😊",
+    "timestamp": "2025-06-28T09:55:00.388954",
+    "message_id": "1f2fb37e-f90a-4616-8ed3-721151084f81",
+    "additional_data": {
+      "model": "gpt-4o",
+      "data_mosaic_enabled": false
+    }
+  }
+]
